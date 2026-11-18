@@ -1,0 +1,209 @@
+/* the story's scroll length plus the sticky stage; --story-vp comes from
+   STORY_VP in lib/story.ts */
+.story {
+  position: relative;
+  height: calc((var(--story-vp, 3.65) + 1) * 100vh);
+}
+
+.story__stage {
+  --p: 0; --tunnel: 0; --sweep: 0; --cover: 0; --bloom: 0; --wdth: 112; --fill: 0; --hero: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  /* clip, not just hide: a hidden box can still be scrolled (e.g. to bring
+     the focused scroll cue into view), which shifts the whole stage */
+  overflow: clip;
+  isolation: isolate;
+}
+
+.story__gl { position: absolute; inset: 0; z-index: 0; }
+.story__gl canvas { width: 100% !important; height: 100% !important; }
+
+/* tunnel vision: the frame closes in as context fills */
+.story__tunnel {
+  --r: calc(78% - var(--tunnel) * 52%);
+  position: absolute; inset: -2px; z-index: 1; pointer-events: none;
+  background: radial-gradient(ellipse calc(var(--r) * 1.25) var(--r) at 50% 52%, transparent 0%, transparent 35%, var(--ink) 100%);
+  opacity: calc(0.45 + var(--tunnel) * 0.55);
+}
+
+.story__grain {
+  position: absolute; inset: -50%; z-index: 2; pointer-events: none; opacity: 0.07;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.9'/></svg>");
+  animation: grain 1.2s steps(6) infinite;
+}
+@keyframes grain {
+  0% { transform: translate(0, 0); } 20% { transform: translate(-3%, 2%); } 40% { transform: translate(2%, -4%); }
+  60% { transform: translate(-4%, -1%); } 80% { transform: translate(3%, 3%); } 100% { transform: translate(0, 0); }
+}
+
+/* ---------- HUD ---------- */
+.hud {
+  position: absolute; z-index: 4;
+  top: calc(84px + env(safe-area-inset-top, 0px));
+  right: max(var(--gutter), env(safe-area-inset-right, 0px));
+  width: min(300px, calc(100vw - 2 * var(--gutter)));
+  display: grid; gap: 8px;
+  font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  color: var(--bone);
+}
+.hud__row { display: flex; justify-content: space-between; gap: 12px; }
+.hud__row > span:first-child { color: var(--ash); }
+.hud__bar { height: 2px; background: var(--hair); position: relative; overflow: hidden; }
+.hud__bar i { position: absolute; inset: 0; background: var(--bone); transform-origin: left; transform: scaleX(var(--fill)); }
+.hud__bar--ideas i { transform: scaleX(var(--ideas, 1)); background: var(--bulb); box-shadow: 0 0 calc(var(--ideas, 1) * 12px) var(--bulb); }
+.hud__ideas { display: inline-flex; align-items: center; gap: 8px; }
+.hud__count { font-size: 13px; color: var(--bulb); opacity: calc(0.35 + var(--ideas, 1) * 0.65); }
+.bulb { width: 12px; height: 16px; overflow: visible; }
+.bulb__glass {
+  fill: var(--bulb); fill-opacity: var(--ideas, 1);
+  stroke: var(--ash); stroke-width: 1.1;
+  filter: drop-shadow(0 0 calc(var(--ideas, 1) * 6px) var(--bulb));
+}
+.bulb__base { fill: none; stroke: var(--ash); stroke-width: 1.1; stroke-linecap: round; stroke-linejoin: round; }
+.hud__row--gap { margin-top: 10px; }
+.hud__redact {
+  justify-self: start; padding: 3px 8px; background: var(--bone); color: var(--ink);
+  opacity: 0; transform: translateY(4px); transition: opacity .4s, transform .4s var(--ease-out);
+}
+.story__stage[data-blind='true'] .hud__redact { opacity: 1; transform: none; }
+
+/* ---------- hero ---------- */
+.hero {
+  position: absolute; z-index: 3; inset: auto 0 0 0;
+  padding: 0 max(var(--gutter), env(safe-area-inset-right, 0px)) calc(28px + env(safe-area-inset-bottom, 0px)) max(var(--gutter), env(safe-area-inset-left, 0px));
+  opacity: calc(1 - var(--hero));
+  transform: translate3d(0, calc(var(--hero) * -12vh), 0);
+  pointer-events: none;
+}
+.hero__mark {
+  position: relative;
+  font-family: var(--f-wide);
+  font-weight: 800;
+  font-variation-settings: 'wdth' 125;
+  font-size: var(--fit, 13vw);
+  line-height: 0.8;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+  margin-left: -0.04em;
+  white-space: nowrap;
+}
+.hero__mark { isolation: isolate; }
+.hero__word { position: relative; z-index: 1; display: inline-block; overflow: hidden; vertical-align: top; padding: 0.04em 0.02em 0.02em 0; }
+.hero__word .ch { display: inline-block; }
+.hero__foot {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; align-items: end;
+  margin-top: clamp(18px, 3vw, 36px);
+  padding-top: 16px; border-top: 1px solid var(--hair);
+}
+@media (min-width: 900px) { .hero__foot { grid-template-columns: minmax(0, 1fr) minmax(0, 1.45fr) auto; gap: clamp(20px, 3vw, 48px); } }
+.hero__tag { font-size: clamp(22px, 2.4vw, 34px); font-weight: 600; line-height: 1.2; letter-spacing: -0.03em; }
+.hero__desc { color: var(--ash); max-width: 44ch; font-size: 15px; }
+.hero__intro { display: grid; gap: 12px; }
+.hero__install { display: grid; gap: 6px; max-width: 470px; pointer-events: auto; }
+.hero__install a { width: fit-content; font-size: 13px; text-decoration: underline; text-underline-offset: 4px; }
+.hero__install .copy-command { border-color: var(--ash); }
+/* scroll cue: says what scrolling does here (fills the context) */
+.hero__cue {
+  pointer-events: auto; justify-self: start;
+  appearance: none; background: transparent; color: var(--bone); cursor: pointer;
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 6px 18px 6px 6px; border: 1px solid var(--hair); border-radius: 999px;
+  font: inherit; font-size: 14px; font-weight: 500; line-height: 1; white-space: nowrap;
+  transition: border-color .5s, background-color .5s;
+}
+.hero__cue:hover { border-color: var(--bone); }
+@media (min-width: 900px) { .hero__cue { justify-self: end; } }
+.hero__cue-icon { position: relative; flex: none; width: 34px; height: 34px; border-radius: 50%; background: var(--bone); overflow: hidden; }
+.hero__cue-arrow {
+  position: absolute; inset: 0; margin: auto; width: 14px; height: 14px;
+  fill: none; stroke: var(--ink); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+  animation: cue-drop 1.8s var(--ease-out) infinite;
+}
+@keyframes cue-drop { 0% { transform: translateY(-160%); } 45%, 65% { transform: translateY(0); } 100% { transform: translateY(160%); } }
+/* gone once the story starts, so the invisible button can't catch clicks */
+.story__stage[data-past-hero='true'] :is(.hero__cue, .hero__install) { visibility: hidden; }
+@media (max-width: 899px) and (max-height: 600px) { .hud { display: none; } }
+
+/* lingering at the top: the hero lifts a little and settles, as if there is
+   more underneath, and the cue lights up */
+.story__stage[data-idle='true'] .hero { animation: hero-peek 3s var(--ease-out) infinite; }
+.story__stage[data-idle='true'] .hero__cue { border-color: var(--bone); background-color: rgba(237, 237, 230, 0.06); }
+@keyframes hero-peek { 0%, 55%, 100% { translate: 0 0; } 22% { translate: 0 -18px; } }
+
+/* ---------- chapters ---------- */
+.chapter {
+  position: absolute; z-index: 3;
+  left: max(var(--gutter), env(safe-area-inset-left, 0px));
+  right: max(var(--gutter), env(safe-area-inset-right, 0px));
+  bottom: calc(clamp(28px, 6vh, 64px) + env(safe-area-inset-bottom, 0px));
+  display: grid; gap: 14px;
+  opacity: 0; visibility: hidden;
+  pointer-events: none;
+}
+.chapter__idx { font-family: var(--f-mono); font-size: 11px; letter-spacing: .12em; color: var(--ash); }
+.chapter__kicker {
+  font-family: var(--f-wide);
+  font-weight: 800;
+  font-variation-settings: 'wdth' var(--wdth);
+  font-size: clamp(54px, 11vw, 200px);
+  line-height: 0.84;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.chapter__accent {
+  font-style: normal; color: var(--bulb);
+  text-shadow: 0 0 0.25em rgba(255, 210, 63, 0.45);
+}
+.chapter__lead {
+  font-size: clamp(30px, 4.4vw, 68px); font-weight: 700; line-height: 1.1; letter-spacing: -0.04em;
+  white-space: pre-line; margin-top: 6px;
+}
+.chapter__text { max-width: 30ch; font-size: clamp(17px, 1.6vw, 22px); line-height: 1.5; font-weight: 500; }
+
+/* ---------- blindfold band ---------- */
+.blindband {
+  position: absolute; z-index: 5; left: 50%; top: 50%;
+  width: 160vmax; height: 18vh;
+  margin-left: -80vmax; margin-top: -9vh;
+  transform: rotate(-3deg) scaleY(calc(1 + var(--cover) * 7));
+  pointer-events: none;
+  clip-path: inset(0 calc((1 - var(--sweep)) * 100%) 0 0);
+}
+.story__stage[data-blind='true'] .blindband {
+  clip-path: inset(0 0 0 0);
+  transform: rotate(-3deg) translateY(calc((1 - var(--cover)) * -70vh)) scaleY(calc(1 + var(--cover) * 7));
+  opacity: var(--cover);
+}
+.blindband::before { content: ''; position: absolute; inset: 0; background: var(--bone); }
+.blindband__inner {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+  color: var(--ink);
+  transform: scaleY(calc(1 / (1 + var(--cover) * 7)));
+}
+.blindband__word {
+  position: relative;
+  font-family: var(--f-wide); font-weight: 800; font-variation-settings: 'wdth' 62;
+  font-size: min(12vh, 18vw); line-height: .8; letter-spacing: -0.02em; text-transform: uppercase;
+}
+.blindband__peek {
+  position: absolute; left: 50%; bottom: calc(100% - .12em);
+  width: clamp(84px, 17vmin, 152px);
+  transform: translateX(-50%);
+  opacity: clamp(0, calc((var(--cover) - .7) / .3), 1);
+}
+.blindband__peek .mascot__bob { animation: none; }
+.blindband__tagline {
+  font-family: var(--f-mono); font-size: clamp(9px, 2.7vw, 12px);
+  letter-spacing: .12em; text-transform: uppercase;
+}
+
+/* hidden from first paint until the intro plays, so the hero only appears once */
+html.is-loading .hero__word .ch { transform: translateY(105%); }
+html.is-loading .hero__foot > *,
+html.is-loading .hud { opacity: 0; }

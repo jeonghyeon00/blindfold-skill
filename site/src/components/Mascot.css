@@ -1,0 +1,55 @@
+/* ---------- mascot ---------- */
+.mascot {
+  --mascot-line: #0C0C0B;
+  --mascot-skin: var(--bone);
+  --mascot-shade: #D6D6CC;
+  --mascot-cloth: #262622;
+  --mascot-rim: #5A5A53;
+  display: block; height: auto; overflow: visible;
+}
+.mascot__body, .mascot__arm, .mascot__foot { stroke: var(--mascot-line); stroke-width: 3.5; stroke-linejoin: round; }
+.mascot__body { fill: var(--mascot-skin); }
+.mascot__arm, .mascot__foot { fill: var(--mascot-shade); }
+.mascot__shine { fill: none; stroke: #fff; stroke-width: 5; stroke-linecap: round; opacity: .6; }
+.mascot__band, .mascot__tail, .mascot__knot { fill: var(--mascot-cloth); stroke: var(--mascot-rim); stroke-width: 1.6; stroke-linejoin: round; }
+.mascot__knot { fill: #34342F; }
+.mascot__stitch { fill: none; stroke: #4A4A44; stroke-width: 1.5; stroke-dasharray: 4 5; stroke-linecap: round; }
+.mascot__cheek { fill: #F4A3A0; opacity: .8; }
+.mascot__mouth { fill: none; stroke: var(--mascot-line); stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
+.mascot__stem { fill: none; stroke: var(--mascot-line); stroke-width: 7; stroke-linecap: round; }
+.mascot__stem-in { fill: none; stroke: var(--mascot-shade); stroke-width: 3.5; stroke-linecap: round; }
+.mascot__bulb { fill: var(--bulb); stroke: var(--mascot-line); stroke-width: 2; }
+.mascot__cap { fill: none; stroke: var(--ash); stroke-width: 2.2; stroke-linecap: round; }
+.mascot__glow { fill: var(--bulb); opacity: .3; filter: blur(5px); }
+.mascot__ray { fill: none; stroke: var(--bulb); stroke-width: 2.6; stroke-linecap: round; }
+
+.mascot__hop, .mascot__bob { transform-box: view-box; transform-origin: 100px 190px; }
+.mascot__tails { transform-box: view-box; transform-origin: 168px 102px; }
+.mascot__arm { transform-box: fill-box; }
+.mascot__arm--l { transform-origin: 90% 50%; }
+.mascot__arm--r { transform-origin: 10% 50%; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .mascot__bob { animation: mascot-bob 2.6s ease-in-out infinite; }
+  .mascot__tails { animation: mascot-tails 1.3s ease-in-out infinite; }
+  .mascot__glow, .mascot__ray { animation: mascot-glow 2.6s ease-in-out infinite; }
+  .mascot__arm { animation: mascot-feel 2.6s ease-in-out infinite; }
+  .mascot__arm--r { animation-delay: -1.3s; }
+  .mascot.is-happy .mascot__hop { animation: mascot-hop .7s cubic-bezier(.3, 1.6, .5, 1); }
+}
+.mascot.is-happy .mascot__glow { opacity: .75; animation: none; }
+.mascot.is-happy .mascot__ray { opacity: 1; animation: none; }
+
+@keyframes mascot-bob { 0%, 100% { transform: translateY(0) scale(1, 1); } 50% { transform: translateY(-5px) scale(.985, 1.015); } }
+@keyframes mascot-tails { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-7deg); } }
+@keyframes mascot-glow { 0%, 100% { opacity: .9; } 50% { opacity: .35; } }
+@keyframes mascot-feel { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-10deg); } }
+@keyframes mascot-hop {
+  0% { transform: translateY(0) scale(1, 1); }
+  20% { transform: translateY(0) scale(1.08, .9); }
+  55% { transform: translateY(-22px) scale(.95, 1.06); }
+  80% { transform: translateY(0) scale(1.05, .95); }
+  100% { transform: translateY(0) scale(1, 1); }
+}
+
+.mascot-mark { display: block; overflow: visible; }

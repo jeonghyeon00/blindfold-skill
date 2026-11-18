@@ -1,0 +1,29 @@
+name: skill
+
+on:
+  push:
+    branches: [main]
+    paths: ['plugins/**', '.claude-plugin/**', '.agents/**', 'scripts/**', '.github/workflows/skill.yml']
+  pull_request:
+    paths: ['plugins/**', '.claude-plugin/**', '.agents/**', 'scripts/**', '.github/workflows/skill.yml']
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: astral-sh/setup-uv@v6
+      - name: Manifests and cross-references
+        run: node scripts/validate.mjs
+      - name: Agent Skills spec (skills-ref)
+        run: |
+          for skill in plugins/*/skills/*/; do
+            uvx --from 'git+https://github.com/agentskills/agentskills#subdirectory=skills-ref' skills-ref validate "$skill"
+          done
+      - name: Claude Code plugin and marketplace
+        run: |
+          npx -y @anthropic-ai/claude-code plugin validate .
+          for plugin in plugins/*/; do npx -y @anthropic-ai/claude-code plugin validate "$plugin"; done

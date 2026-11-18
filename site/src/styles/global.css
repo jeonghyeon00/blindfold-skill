@@ -1,0 +1,111 @@
+@import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
+@import 'lenis/dist/lenis.css';
+
+/* Two colours only, like a blindfold: ink and bone. Width of the type is the
+   third "colour": it narrows as context fills and opens back up after. */
+:root {
+  --ink: #0C0C0B;
+  --bone: #EDEDE6;
+  --ash: #85857C;
+  --ash-ink: #5C5C55; /* muted text on bone */
+  --bulb: #FFD23F; /* ideas, and only ideas */
+  --bias: #FF5236; /* the existing answer the thinking leans toward */
+  --hair: rgba(237, 237, 230, 0.14);
+  --hair-ink: rgba(12, 12, 11, 0.16);
+
+  --f-wide: 'Archivo', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif;
+  /* Inter only fills in Latin accents (Spanish) that Pretendard's subsets lack */
+  --f-kr: 'Pretendard Variable', Pretendard, Inter, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --f-mono: 'JetBrains Mono', 'Pretendard Variable', Pretendard, ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  --gutter: clamp(16px, 3.2vw, 48px);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--bone);
+  font-family: var(--f-kr);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  word-break: keep-all;
+  overflow-x: clip;
+}
+/* Chinese and Japanese: system CJK faces first (Pretendard's Hanja would mix
+   Korean glyph shapes in), and normal line breaking, since keep-all would only
+   break at spaces these languages don't use. */
+:lang(zh) {
+  --f-kr: -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+  --f-mono: 'JetBrains Mono', 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', ui-monospace, monospace;
+}
+:lang(ja) {
+  --f-kr: -apple-system, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic', Meiryo, sans-serif;
+  --f-mono: 'JetBrains Mono', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', ui-monospace, monospace;
+}
+:lang(zh) body, :lang(ja) body { word-break: normal; line-break: strict; }
+
+::selection { background: var(--bone); color: var(--ink); }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; }
+img, svg, canvas { display: block; max-width: 100%; }
+h1, h2, h3, p { margin: 0; }
+:focus-visible { outline: 1.5px solid currentColor; outline-offset: 4px; }
+
+.mono {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.wide {
+  font-family: var(--f-wide);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.86;
+}
+
+.copy-command {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 6px 6px 12px;
+  border: 1px solid var(--hair);
+  background: var(--ink);
+}
+.copy-command code { font: 500 clamp(11px, 1.3vw, 14px)/1.45 var(--f-mono); overflow-wrap: anywhere; }
+.copy-command button {
+  min-height: 40px;
+  border: 1px solid var(--hair);
+  padding: 6px 10px;
+  background: transparent;
+  font-size: 13px;
+  cursor: pointer;
+}
+.copy-command button:hover { background: var(--bone); color: var(--ink); }
+
+.gutter {
+  padding-left: max(var(--gutter), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--gutter), env(safe-area-inset-right, 0px));
+}
+
+/* word-mask reveal used by [data-split] */
+.split-line { display: block; overflow: hidden; padding-bottom: 0.06em; margin-bottom: -0.06em; }
+.split-word { display: inline-block; will-change: transform; }
+
+@media (hover: hover) and (pointer: fine) {
+  html.has-cursor, html.has-cursor * { cursor: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}

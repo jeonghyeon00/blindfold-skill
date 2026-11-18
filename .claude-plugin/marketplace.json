@@ -1,0 +1,35 @@
+{
+  "name": "blindfold",
+  "owner": {
+    "name": "jeonghyeon00"
+  },
+  "metadata": {
+    "description": "The Blindfold skill for Claude Code",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "blindfold",
+      "source": "./plugins/blindfold",
+      "description": "Fresh alternatives from subagents that never see the current solution: a brief goes out, independent designs come back.",
+      "version": "0.1.0",
+      "author": {
+        "name": "jeonghyeon00",
+        "url": "https://github.com/jeonghyeon00"
+      },
+      "homepage": "https://github.com/jeonghyeon00/blindfold-skill",
+      "repository": "https://github.com/jeonghyeon00/blindfold-skill",
+      "license": "MIT",
+      "keywords": [
+        "skills",
+        "subagents",
+        "context",
+        "anchoring",
+        "brainstorming",
+        "design",
+        "alternatives"
+      ],
+      "category": "productivity"
+    }
+  ]
+}

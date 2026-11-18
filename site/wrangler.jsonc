@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "blindfold",
+  "compatibility_date": "2026-11-17",
+  "assets": {
+    "directory": "./dist"
+  },
+  "routes": [{ "pattern": "blindfold.cmdrun.net", "custom_domain": true }],
+  "workers_dev": true,
+  "preview_urls": true
+}

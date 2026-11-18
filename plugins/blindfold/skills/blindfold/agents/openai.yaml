@@ -1,0 +1,4 @@
+interface:
+  display_name: "Blindfold"
+  short_description: "Fresh alternatives from agents that never see the current solution"
+  default_prompt: "Use $blindfold to get genuinely different alternatives for this."

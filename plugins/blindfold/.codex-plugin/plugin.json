@@ -1,0 +1,40 @@
+{
+  "name": "blindfold",
+  "version": "0.1.0",
+  "description": "Fresh alternatives from subagents that never see the current solution: a brief goes out, independent designs come back.",
+  "author": {
+    "name": "jeonghyeon00",
+    "url": "https://github.com/jeonghyeon00"
+  },
+  "homepage": "https://github.com/jeonghyeon00/blindfold-skill",
+  "repository": "https://github.com/jeonghyeon00/blindfold-skill",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "subagents",
+    "context",
+    "anchoring",
+    "brainstorming",
+    "design",
+    "alternatives"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Blindfold",
+    "shortDescription": "Fresh alternatives from agents that never see the current solution",
+    "longDescription": "Blindfold keeps the existing context with the main agent, sends independent subagents out with only a short brief (goal plus the context needed to reach it), and brings back alternatives that are not variations of what already exists. The main agent compares them, you pick, and it integrates the pick.",
+    "developerName": "jeonghyeon00",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use $blindfold to get genuinely different alternatives for this."
+    ],
+    "websiteURL": "https://github.com/jeonghyeon00/blindfold-skill",
+    "composerIcon": "./assets/icon.svg",
+    "logo": "./assets/icon.png"
+  }
+}
