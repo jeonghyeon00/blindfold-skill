@@ -10,7 +10,7 @@
     <a href="https://agentskills.io"><img src="https://img.shields.io/badge/Agent%20Skills-standard-EDEDE6?style=flat-square&labelColor=0C0C0B" alt="Agent Skills"></a>
     <img src="https://img.shields.io/badge/Claude%20Code-plugin-EDEDE6?style=flat-square&labelColor=0C0C0B" alt="Claude Code plugin">
     <img src="https://img.shields.io/badge/Codex-plugin-EDEDE6?style=flat-square&labelColor=0C0C0B" alt="Codex plugin">
-    <img src="https://img.shields.io/badge/version-0.1.0-FFD23F?style=flat-square&labelColor=0C0C0B" alt="Version 0.1.0">
+    <img src="https://img.shields.io/badge/version-0.2.0-FFD23F?style=flat-square&labelColor=0C0C0B" alt="Version 0.2.0">
     <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-EDEDE6?style=flat-square&labelColor=0C0C0B" alt="MIT License"></a>
   </p>
 
@@ -150,6 +150,7 @@ npx skills add jeonghyeon00/blindfold-skill
 plugins/blindfold/
 ├─ .claude-plugin/plugin.json       Claude Code 플러그인 매니페스트
 ├─ .codex-plugin/plugin.json        Codex 플러그인 매니페스트
+├─ agents/blind-subagent.md         Claude Code 서브에이전트 (웹 검색과 웹 페치만 사용)
 ├─ assets/                          플러그인 아이콘
 └─ skills/blindfold/                Agent Skills 표준 스킬
    ├─ SKILL.md

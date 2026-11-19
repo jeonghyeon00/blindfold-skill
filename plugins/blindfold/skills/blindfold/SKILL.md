@@ -1,9 +1,9 @@
 ---
 name: blindfold
-description: Gets an unanchored result by hiding the existing context from the agents that produce it. The main agent distills the request into a short brief, independent subagents that cannot read files work from that brief alone, and the main agent compares what comes back. Brainstorm mode (3 subagents by default) designs genuinely different alternatives; use it when the user asks for fresh ideas, a redesign, other directions, or says every answer looks like the current one. Research mode (1 subagent by default) investigates an open goal from outside sources; use it to fact-check a claim, research a question, or get an independent second opinion. Decide mode (3 subagents by default) has blind judges pick between existing options; use it when the user asks which option is better or wants an unbiased tiebreak. Also use when the user invokes blindfold. Not for bugs, or for questions the project's own files answer.
+description: Gets an unanchored result by hiding the existing context from the agents that produce it. The main agent distills the request into a short brief, independent subagents that cannot read files work from that brief alone, and the main agent compares what comes back. Brainstorm mode (3 subagents by default) designs genuinely different alternatives; use it when the user asks for fresh ideas, a redesign, other directions, or says every answer looks like the current one. Research mode (1 subagent by default) investigates an open goal from outside sources; use it when the user wants in-depth research, a rigorous fact-check, or an independent second opinion, not for quick lookups. Decide mode (3 subagents by default) has blind judges pick between existing options; use it when the user has to make a decision between options and wants it unbiased, or asks for a blind vote, not for a quick preference. Also use when the user invokes blindfold. Not for bugs, or for questions the project's own files answer.
 license: MIT
 metadata:
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # Blindfold
@@ -30,7 +30,7 @@ Write the brief from everything you already know. The subagents cannot read file
 - Leave out: the existing solution, prior attempts, rejected ideas, file paths, code, and your preferred direction. If the user has a theory about the cause, keep it but label it as their unconfirmed guess; leave out any solution they have in mind.
 
 **Research.**
-- Goal: what to find out, written as an open goal rather than a claim to confirm ("X가 Y보다 빠른지 확인한다" becomes "X와 Y의 속도 차이와 그 조건을 파악한다").
+- Goal: what to find out, written as an open goal rather than a claim to confirm ("check that X is faster than Y" becomes "find out how the speed of X and Y differs, and under what conditions").
 - Context: what the finding is for, and the scope (timeframe, region, versions, definitions).
 - Leave out: the claim's source, what the user suspects, your current answer, the evidence you have seen, and how confident you are.
 
@@ -52,7 +52,7 @@ Spawn the subagents in parallel. Give each one the prompt for its mode, filled i
 - **Research**: [references/prompt-research.md](references/prompt-research.md)
 - **Decide**: [references/prompt-decide.md](references/prompt-decide.md). Shuffle the order of the options for each judge, renumbering them, and keep the mapping: judges favour options by position.
 
-Use whatever subagent mechanism your environment provides. The prompt itself forbids every tool except web search and web fetch; if you can also limit a subagent's tools when you spawn it, limit them to those two.
+In Claude Code with the Blindfold plugin installed, spawn each one as the `blindfold:blind-subagent` agent type: it has only web search and web fetch, and does not load CLAUDE.md. Anywhere else, use whatever subagent mechanism your environment provides; the prompt itself forbids every tool except web search and web fetch.
 
 Give every subagent the same brief and nothing else. Do not assign directions, themes or personas, do not mention the other subagents, and do not hint at the current solution or the expected answer: each of those anchors them again.
 
@@ -61,8 +61,6 @@ If you cannot spawn subagents at all, tell the user Blindfold needs them and sto
 ## 3. Collect
 
 Wait for every subagent. Save each answer next to `BRIEF.md`, unedited: `A.md`, `B.md`, `C.md`, … in Brainstorm mode, `FINDING.md` in Research mode, `VOTE-1.md`, `VOTE-2.md`, … in Decide mode, with the option mapping for each judge.
-
-Discard and re-run a subagent whose answer shows it read files or ran commands.
 
 ## 4. Compare, then act
 

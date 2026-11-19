@@ -36,7 +36,7 @@ function i18nPages(siteUrl: string): Plugin {
       applicationCategory: 'DeveloperApplication',
       operatingSystem: 'Any',
       inLanguage: info.htmlLang,
-      softwareVersion: '0.1.0',
+      softwareVersion: '0.2.0',
       license: 'https://opensource.org/licenses/MIT',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
     }

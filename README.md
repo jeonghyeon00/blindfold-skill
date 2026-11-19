@@ -11,7 +11,7 @@
     <a href="https://agentskills.io"><img src="https://img.shields.io/badge/Agent%20Skills-standard-EDEDE6?style=flat-square&labelColor=0C0C0B" alt="Agent Skills"></a>
     <img src="https://img.shields.io/badge/Claude%20Code-plugin-EDEDE6?style=flat-square&labelColor=0C0C0B" alt="Claude Code plugin">
     <img src="https://img.shields.io/badge/Codex-plugin-EDEDE6?style=flat-square&labelColor=0C0C0B" alt="Codex plugin">
-    <img src="https://img.shields.io/badge/version-0.1.0-FFD23F?style=flat-square&labelColor=0C0C0B" alt="Version 0.1.0">
+    <img src="https://img.shields.io/badge/version-0.2.0-FFD23F?style=flat-square&labelColor=0C0C0B" alt="Version 0.2.0">
     <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-EDEDE6?style=flat-square&labelColor=0C0C0B" alt="MIT License"></a>
   </p>
 
@@ -151,6 +151,7 @@ Or copy `plugins/blindfold/skills/blindfold/` into `~/.claude/skills/` (Claude C
 plugins/blindfold/
 ├─ .claude-plugin/plugin.json       Claude Code plugin manifest
 ├─ .codex-plugin/plugin.json        Codex plugin manifest
+├─ agents/blind-subagent.md         Claude Code subagent (web search and web fetch only)
 ├─ assets/                          Plugin icons
 └─ skills/blindfold/                The skill, in the Agent Skills format
    ├─ SKILL.md

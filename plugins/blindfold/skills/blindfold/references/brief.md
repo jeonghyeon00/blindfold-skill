@@ -97,69 +97,69 @@ Describe every option at the same length and level of detail. A longer or more v
 
 ### Brainstorm
 
-Request: "온보딩 이탈 방지를 위해 온보딩을 다시 구성하고 싶어"
+Request: "Rework onboarding to cut sign-up drop-off"
 
 ```markdown
 # BRIEF
 
 ## Goal
-가입 도중 이탈을 줄여 가입 완료율을 55% 이상으로 올린다.
+Cut drop-off during sign-up and raise sign-up completion to 55% or more.
 
 ## Context
-- 디자이너·개발자·기획자가 함께 쓰는 웹 협업 화이트보드.
-- 사용자가 보는 문제: 가입을 시작한 사람 열에 여섯이 끝내지 않고 떠난다. 모바일에서 특히 심하다.
-- 사용자는 입력할 것이 많아 보여서라고 추정한다. 확인된 원인은 아니다.
-- 지금 가입 완료율은 38%다.
-- 브랜드 컬러는 주색 #3B5BFD, 글자 #111318. 로고는 좌측 상단 텍스트 워드마크.
-- 받는 정보는 이메일, 비밀번호, 직군 세 가지.
-- 360px 폭의 첫 화면 안에서 끝나야 한다.
+- A web whiteboard that designers, developers and PMs use together.
+- The problem as the user sees it: six in ten people who start signing up leave before finishing, worst on mobile.
+- The user guesses it is because there looks like a lot to fill in. The cause is not confirmed.
+- Sign-up completion is 38% today.
+- Brand colours: primary #3B5BFD, text #111318. Logo: a text wordmark, top left.
+- Collect exactly three things: email, password, role.
+- It must finish within the first screen at 360px wide.
 ```
 
 The brief states the problem the user sees and marks their theory as a guess, but does not mention that the current onboarding is a three-step form, or anything about its buttons, copy or progress bar. With those left out, the subagents come back with a conversational sign-up, a try-first flow and a single card instead of three variations on the form.
 
 ### Research
 
-Request: "가입 폼에서 필드를 줄이면 전환율이 무조건 오른다는 게 맞아?"
+Request: "Is it true that cutting fields from a sign-up form always raises conversion?"
 
 ```markdown
 # BRIEF
 
 ## Goal
-가입·리드 폼의 입력 필드 수가 완료율에 주는 영향과, 그 효과가 달라지는 조건을 근거와 함께 파악한다.
+Find out, with evidence, how the number of fields in sign-up and lead forms affects completion rate, and the conditions under which that effect changes.
 
 ## Context
-- 웹 서비스의 회원가입 폼을 설계하는 데 쓴다.
-- 필드 수와 완료율의 관계를 다룬 실험, 연구, 대규모 사례를 원한다.
-- 효과의 크기와, 효과가 없거나 반대로 나타난 조건이 함께 필요하다.
+- For designing the sign-up form of a web service.
+- Looking for experiments, studies and large-scale cases on how field count relates to completion rate.
+- Both the size of the effect and the conditions where it was absent or reversed are needed.
 ```
 
-The brief turns "무조건 오른다" into an open goal and does not say what the user or the main agent believes, so the subagent has nothing to agree with.
+The brief turns "always raises" into an open goal and does not say what the user or the main agent believes, so the subagent has nothing to agree with.
 
 ### Decide
 
-Request: "A, B, C 중에 뭐가 제일 나아?" after the Brainstorm example above.
+Request: "Which of A, B and C is best?" after the Brainstorm example above.
 
 ```markdown
 # BRIEF
 
 ## Goal
-가입 도중 이탈을 줄여 가입 완료율을 55% 이상으로 올린다.
+Cut drop-off during sign-up and raise sign-up completion to 55% or more.
 
 ## Context
-- 디자이너·개발자·기획자가 함께 쓰는 웹 협업 화이트보드.
-- 사용자가 보는 문제: 가입을 시작한 사람 열에 여섯이 끝내지 않고 떠난다. 모바일에서 특히 심하다.
-- 받는 정보는 이메일, 비밀번호, 직군 세 가지. 360px 첫 화면 안에서 끝나야 한다.
-- 기준: 완료율 개선 효과, 그다음 구현 부담.
+- A web whiteboard that designers, developers and PMs use together.
+- The problem as the user sees it: six in ten people who start signing up leave before finishing, worst on mobile.
+- Collect exactly three things: email, password, role. It must finish within the first screen at 360px wide.
+- Criteria: effect on completion rate first, then implementation effort.
 
 ## Options
 ### Option 1
-가입 없이 바로 보드를 쓰게 하고, 처음 저장하는 순간 이메일·비밀번호·직군을 한 화면에서 받는다.
+Let people use the board right away without signing up, and ask for email, password and role on one screen the first time they save.
 
 ### Option 2
-한 번에 질문 하나씩, 채팅처럼 이메일, 비밀번호, 직군을 차례로 묻는다.
+Ask one question at a time, like a chat: email, then password, then role.
 
 ### Option 3
-카드 한 장에 세 항목을 모두 두고, 직군은 한 번에 고르는 칩으로 받는다.
+Put all three fields on a single card, with role as one-tap chips.
 ```
 
 The options drop their Brainstorm titles and letters, and each is one sentence of the same weight. Each judge sees them in a different order.
