@@ -3,6 +3,7 @@ import type { Messages } from '../types'
 const messages: Messages = {
   "meta": {
     "title": "Blindfold — コンテキストを隠す AI エージェントスキル",
+    "headline": "コンテキストを隠す AI エージェントスキル",
     "description": "AI エージェントにひととき目隠しをするスキル。既存のコンテキストを隠し、独立したサブエージェントがゼロから考え直して、本当に新しい案を見つけます。Claude Code・Codex・Agent Skills 対応。",
     "share": "知るほどに、思いつかなくなる。Blindfold はエージェントがすでに知っていることを隠し、まっさらなサブエージェントにゼロから考えさせます。",
     "imageAlt": "目隠しをした Blindfold のマスコットと、周りに浮かぶアイデアの電球",

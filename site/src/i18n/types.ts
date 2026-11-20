@@ -2,6 +2,8 @@
 export interface Messages {
   meta: {
     title: string
+    /** what Blindfold is, read after the wordmark in the H1 */
+    headline: string
     description: string
     /** shorter line for link previews */
     share: string

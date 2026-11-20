@@ -3,6 +3,7 @@ import type { Messages } from '../types'
 const messages: Messages = {
   "meta": {
     "title": "Blindfold — la Agent Skill que oculta el contexto",
+    "headline": "la Agent Skill que oculta el contexto",
     "description": "Una Agent Skill que le venda los ojos a tu agente de IA por un momento. Oculta el contexto existente para que subagentes independientes piensen desde cero y encuentren alternativas realmente nuevas. Compatible con Claude Code, Codex y cualquier cliente de Agent Skills.",
     "share": "Cuanto más sabe, menos imagina. Blindfold oculta lo que tu agente ya sabe para que subagentes nuevos piensen desde cero.",
     "imageAlt": "La mascota de Blindfold con los ojos vendados, rodeada de bombillas de ideas",

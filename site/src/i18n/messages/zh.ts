@@ -3,6 +3,7 @@ import type { Messages } from '../types'
 const messages: Messages = {
   "meta": {
     "title": "Blindfold — 遮住上下文的 AI 智能体技能",
+    "headline": "遮住上下文的 AI 智能体技能",
     "description": "让 AI 智能体暂时蒙上眼睛的技能。它遮住已有的上下文，让独立的子智能体从零开始思考，找到真正新的方案。支持 Claude Code、Codex 及所有 Agent Skills 客户端。",
     "share": "知道得越多，想到的越少。Blindfold 遮住智能体已知的一切，让全新的子智能体从零开始思考。",
     "imageAlt": "蒙着眼睛的 Blindfold 吉祥物，周围浮现发光的灵感灯泡",

@@ -3,6 +3,7 @@ import type { Messages } from '../types'
 const messages: Messages = {
   "meta": {
     "title": "Blindfold — 컨텍스트를 가리는 AI 에이전트 스킬",
+    "headline": "컨텍스트를 가리는 AI 에이전트 스킬",
     "description": "AI 에이전트의 눈을 잠시 가리는 스킬. 기존 컨텍스트를 가리고, 독립된 서브에이전트가 처음부터 다시 생각해 새로운 대안을 찾게 합니다. Claude Code · Codex · Agent Skills 지원.",
     "share": "많이 알수록, 덜 떠올린다. 기존 컨텍스트를 가리고 독립된 서브에이전트가 처음부터 다시 생각하게 하는 AI 에이전트 스킬.",
     "imageAlt": "눈을 가린 Blindfold 마스코트와 주변에 떠오르는 아이디어 전구",

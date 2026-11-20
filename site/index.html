@@ -41,15 +41,13 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Inter:wght@300..800&family=JetBrains+Mono:wght@400;500&display=swap" />
   </head>
   <body>
-    <div id="root"></div>
-    <noscript>
-      <main style="max-width:40rem;margin:4rem auto;padding:0 1.5rem;color:#EDEDE6;font-family:system-ui,sans-serif;line-height:1.6">
-        <h1>Blindfold</h1>
-        <p><strong>__TAG__</strong></p>
-        <p>__DESC__</p>
-        <p>__NOSCRIPT__</p>
-      </main>
-    </noscript>
+    <script>document.documentElement.classList.add('js')</script>
+    <style>
+      .prerender { max-width: 40rem; margin: 4rem auto; padding: 0 1.5rem; color: #EDEDE6; font-family: system-ui, sans-serif; line-height: 1.6; }
+      .prerender pre { white-space: pre-wrap; }
+      .js .prerender { visibility: hidden; }
+    </style>
+    <div id="root">__CONTENT__</div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

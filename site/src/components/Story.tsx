@@ -190,6 +190,7 @@ export default function Story({ onScrollTo }: { onScrollTo: (y: number) => void 
             <span className="hero__word" data-fit-text>
               {[...'Blindfold'].map((c, i) => <span className="ch" key={i}>{c}</span>)}
             </span>
+            <span className="sr-only"> — {t.meta.headline}</span>
           </h1>
           <div className="hero__foot">
             <p className="hero__tag">{t.story.heroTag[0]}<br />{t.story.heroTag[1]}</p>

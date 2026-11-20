@@ -7,10 +7,71 @@ import ko from './src/i18n/messages/ko'
 import zh from './src/i18n/messages/zh'
 import ja from './src/i18n/messages/ja'
 import es from './src/i18n/messages/es'
+import { QUICK_INSTALL, REPO, REPO_URL } from './src/lib/install'
+import plugin from '../plugins/blindfold/.claude-plugin/plugin.json'
 
 const MESSAGES: Record<Locale, Messages> = { en, ko, zh, ja, es }
 
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+
+/** The released skill version, so structured data follows the plugin manifest. */
+const VERSION: string = plugin.version
+
+/**
+ * The page's text as plain semantic HTML, placed inside #root so crawlers that
+ * don't run JavaScript still read the whole page. React replaces it on mount;
+ * html.js hides it until then so it never flashes.
+ */
+function staticContent(l: Locale): string {
+  const m = MESSAGES[l]
+  const code = (c: string) => `<pre><code>${esc(c)}</code></pre>`
+  return `<div class="prerender">
+      <header>
+        <h1>Blindfold<span> — ${esc(m.meta.headline)}</span></h1>
+        <p><strong>${esc(m.story.heroTag.join(' '))}</strong></p>
+        <p>${esc(m.story.heroDesc)}</p>
+        ${code(QUICK_INSTALL)}
+      </header>
+      <main>
+        <section>
+          <p>${m.story.chapters.map(esc).join(' ')}</p>
+          <p>${esc(m.story.lead.replace(/\n/g, ' '))}</p>
+        </section>
+        <section>
+          <h2>${esc(m.why.label)}</h2>
+          <p>${esc(m.why.manifesto)}</p>
+        </section>
+        <section>
+          <h2>${esc(m.how.label)}</h2>
+          <ol>${m.how.steps.map((s) => `<li><strong>${esc(s.name)}</strong> — ${esc(s.desc)}</li>`).join('')}</ol>
+        </section>
+        <section>
+          <h2>${esc(m.compare.title)}</h2>
+          <p>${esc(m.compare.ask)}: “${esc(m.compare.prompt)}”</p>
+          <p>${esc(m.compare.verdictWithout)} ${esc(m.compare.verdictWith)}</p>
+          <ul>${m.compare.alts.map((a) => `<li><strong>${esc(a.title)}</strong> — ${esc(a.desc)}</li>`).join('')}</ul>
+          <p>${esc(m.compare.pickHint)} ${esc(m.compare.pickThen)}</p>
+        </section>
+        <section>
+          <h2>${esc(m.start.label)}</h2>
+          <p>${esc(m.start.when)}</p>
+          <p>${esc(m.start.get)}</p>
+          <p>${esc(m.start.then)}</p>
+        </section>
+        <section>
+          <h2>${esc(m.install.title)}</h2>
+          <h3>Skills CLI</h3>
+          ${code(QUICK_INSTALL)}
+          <h3>Claude Code</h3>
+          ${code(`/plugin marketplace add ${REPO}\n/plugin install blindfold@blindfold`)}
+          <h3>Codex</h3>
+          ${code(`codex plugin marketplace add ${REPO}\ncodex plugin add blindfold@blindfold`)}
+          <p><a href="${REPO_URL}">GitHub · ${esc(REPO)}</a></p>
+        </section>
+      </main>
+      <noscript><p>${esc(m.meta.noscript)}</p></noscript>
+    </div>`
+}
 
 /**
  * One HTML page per locale (/, /ko/, /zh/, …) with translated <head>, self
@@ -36,7 +97,8 @@ function i18nPages(siteUrl: string): Plugin {
       applicationCategory: 'DeveloperApplication',
       operatingSystem: 'Any',
       inLanguage: info.htmlLang,
-      softwareVersion: '0.2.0',
+      softwareVersion: VERSION,
+      codeRepository: REPO_URL,
       license: 'https://opensource.org/licenses/MIT',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
     }
@@ -56,7 +118,7 @@ function i18nPages(siteUrl: string): Plugin {
       __PAGE_URL__: pageUrl(l),
       __SITE_URL__: siteUrl,
       __NOSCRIPT__: esc(m.noscript),
-      __TAG__: esc(MESSAGES[l].story.heroTag.join(' ')),
+      __CONTENT__: staticContent(l),
     }
     return html
       .replace('<!--__HEAD__-->', head)

@@ -3,6 +3,7 @@ import type { Messages } from '../types'
 const messages: Messages = {
   "meta": {
     "title": "Blindfold — the Agent Skill that hides your context",
+    "headline": "the Agent Skill that hides your context",
     "description": "An Agent Skill that briefly blindfolds your AI agent. It hides the existing context so independent subagents think from scratch and find genuinely new alternatives. Works with Claude Code, Codex and any Agent Skills client.",
     "share": "The more it knows, the less it imagines. Blindfold hides what your agent already knows, so fresh subagents can think from scratch.",
     "imageAlt": "The Blindfold mascot, blindfolded, surrounded by glowing idea bulbs",
